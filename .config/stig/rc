@@ -1,0 +1,5 @@
+# Set media jail as host
+set connect.host 192.168.0.123
+
+# Default columns
+set columns.torrents ratio name eta activity downloaded size %downloaded
