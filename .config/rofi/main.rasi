@@ -1,0 +1,117 @@
+/**
+ * Rofi version: 1.7.5+wayland2
+ **/
+
+ configuration {
+	font: "Hurmit Nerd Font 12";
+	show-icons: true;
+	display-drun: "";
+	drun-display-format: "{name}";
+	disable-history: false;
+	sidebar-mode: false;
+}
+
+* {
+	background: #1F1F28;
+	background-bar: #0B0B13;
+	background-alt: #00000000;
+	foreground: #DCD7BAB3;
+	accent: #7E9CD8;
+}
+
+window {
+	transparency: "real";
+	background-color: @background;
+	text-color: @foreground;
+	border: 0px;
+	border-color: @border;
+	border-radius: 0px;
+	width: 25%;
+	location: center;
+	x-offset: 0;
+	y-offset: 0;
+}
+
+prompt {
+	enabled: true;
+	padding: 0.00% 0.75% 0% -0.1%;
+	background-color: @background-alt;
+	text-color: @foreground;
+	font: "Hurmit Nerd Font 12";
+}
+
+entry {
+	background-color: @background-alt;
+	text-color: @foreground;
+	placeholder-color: @foreground;
+	expand: true;
+	horizontal-align: 0;
+	placeholder: "Search";
+	padding: 0.00% 0% 0% 0%;
+	blink: true;
+}
+
+inputbar {
+	children: [ prompt, entry ];
+	background-color: @background;
+	text-color: @foreground;
+	expand: false;
+	border: 1px;
+	border-radius: 4px;
+	border-color: @accent;
+	margin: 0% 0% 0% 0%;
+	padding: 1%;
+}
+
+listview {
+	background-color: @background-alt;
+	columns: 6;
+	lines: 3;
+	spacing: 0%;
+	cycle: false;
+	dynamic: true;
+	layout: vertical;
+}
+
+mainbox {
+	background-color: @background-alt;
+	border: 2px;
+	border-radius: 0% 0% 0% 0%;
+	border-color: @accent;
+	children: [ inputbar, listview ];
+	spacing: 1%;
+	padding: 1% 0.5% 1% 0.5%;
+}
+
+element {
+	background-color: @background-alt;
+	text-color: @foreground;
+	orientation: vertical;
+	border-radius: 0%;
+	padding: 2% 0% 2% 0%;
+}
+
+element-icon {
+	background-color: @background-alt;
+	text-color: inherit;
+	horizontal-align: 0.5;
+	vertical-align: 0.5;
+	size: 64px;
+	border: 0px;
+}
+
+element-text {
+	background-color: @background-alt;
+	text-color: inherit;
+	expand: true;
+	horizontal-align: 0.5;
+	vertical-align: 0.5;
+	margin: 0.5% 0.5% -0.5% 0.5%;
+}
+	element selected {
+	background-color: @background-bar;
+	text-color: @foreground;
+	border: 1px;
+	border-radius: 4px;
+	border-color: @accent;
+}
