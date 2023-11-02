@@ -1,0 +1,57 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$package\
+$c\
+$cmake\
+$golang\
+$haskell\
+$java\
+$lua\
+$nodejs\
+$perl\
+$php\
+$python\
+$rust\
+$solidity\
+$zig\
+$conda\
+$meson\
+$sudo\
+$jobs\
+$character
+"""
+
+# Inserts a blank line between shell prompts
+add_newline = false
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character] # The name of the module we are configuring is 'character'
+success_symbol = '[󰘧](bold purple)'
+error_symbol = '[󰘧](bold red)'
+vimcmd_symbol = '[](bold purple)'
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[directory]
+format = '[$read_only]($read_only_style) [$path]($style) '
+truncation_length = 3
+read_only = ''
+repo_root_style = 'bold green'
+fish_style_pwd_dir_length = 1
+
+[directory.substitutions]
+'/media/Jellyfin' = 'Jellyfin'
+'Jellyfin/media/anime' = 'Anime'
+'Jellyfin/media/movies' = 'Movies'
+'Jellyfin/media/tv' = 'TV'
+'/etc/portage' = 'portage'
