@@ -83,9 +83,7 @@ groups.append(ScratchPad("scratchpad", [
     DropDown("volgui", "pavucontrol", width=0.5, height=0.7, x=0.25, y=0.15, on_focus_lost_hide=False),
 ]))
 
-# Track history of focused groups so we can quickly swap to the most recent
-# Populate with primary groups to avoid index errors
-
+# Bind groups to screens
 def go_to_group(name:str) -> Callable:
     def _inner(qtile: Qtile) -> None:
         if len(qtile.screens) == 1:
