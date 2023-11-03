@@ -229,6 +229,11 @@ require("lazy").setup({
           ['core.defaults'] = {}, -- Loads default behavior
           ['core.concealer'] = {}, -- Adds icons
           ['core.export'] = {}, -- Convert norg files to other filetypes
+          ['core.export.markdown'] = {
+            config = {
+              extensions = "all"
+            }
+          },
           ['core.dirman'] = { -- Manages neorg workspaces
             config = {
               workspaces = {
