@@ -78,7 +78,7 @@ def workspaces(groups, fontsize=None, grouppad=10):
 
 # Widget list for primary monitor
 primary_widgets = [
-    *workspaces([str(i) for i in range(1, 10)]),
+    *workspaces([str(i) for i in range(0, 10)]),
 
     widget.StatusNotifier(
         **base(),

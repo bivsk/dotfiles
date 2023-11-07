@@ -19,6 +19,14 @@ groups = [Group(f"{i+1}", label=group_labels[i], screen_affinity=1) for i in ran
 # Groups for secondary monitors
 groups.extend( 
     [
+        # Gaming group
+        Group(
+            name="0",
+            label="󰓓",
+            layout="floating",
+            screen_affinity=1
+        ),
+
         # Vertical Monitor
         Group(
             name="F1",
@@ -69,7 +77,8 @@ groups.extend(
             label="󱊲",
             layout="monadtall",
             screen_affinity=2
-        )
+        ),
+
     ]
 )
 
