@@ -60,13 +60,16 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # ------------------ Apps -----------------
 
     # Menu
-    ([mod], "p", lazy.spawn("rofi -show drun -show-icons")),
+    ([mod], "p", lazy.spawn("rofi -show drun")),
 
     # Terminal
     ([mod, "shift"], "Return", lazy.spawn(terminal)),
 
     # Notification center
     ([mod], "backslash", lazy.spawn("swaync-client -t")),
+
+    # Dmenu
+    ([mod, "shift"], "s", lazy.spawn("dm-position-size")),
 
     # ----------------- Media -----------------
 
