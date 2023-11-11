@@ -6,6 +6,8 @@
 from libqtile.config import Key
 from libqtile.lazy import lazy
 
+from fake_fullscreen import toggle_fullscreen_state
+
 mod = "mod4"
 terminal = "footclient"
 
@@ -24,9 +26,10 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
 
     # Toggle fullscreen
     ([mod], "f", lazy.window.toggle_fullscreen()),
+    ([mod, "shift"], "f", lazy.function(toggle_fullscreen_state)),
 
     # Toggle floating
-    ([mod, "shift"], "f", lazy.window.toggle_floating()),
+    ([mod], "t", lazy.window.toggle_floating()),
 
     # Move windows up or down in current stack
     ([mod, "shift"], "j", lazy.layout.shuffle_down()),
