@@ -218,6 +218,8 @@ require("lazy").setup({
   { 'numToStr/Comment.nvim', opts = {} },
   { 'ellisonleao/glow.nvim', config = true, cmd = "Glow" },
 
+  'LhKipp/nvim-nu',
+
   -- Neorg
   {
     'nvim-neorg/neorg',
