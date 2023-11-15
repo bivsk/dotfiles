@@ -1,4 +1,4 @@
---> Options 
+--> Options
 -- Set highlight on search
 vim.o.hlsearch = false
 
@@ -92,7 +92,7 @@ require("lazy").setup({
           -- TelescopePreviewBorder = { bg = theme.ui.bg_dim, fg = theme.ui.bg_dim },
 
           -- Dark popup menu
-          Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1, blend = vim.o.pumblend },  -- add `blend = vim.o.pumblend` to enable transparency
+          Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1, blend = vim.o.pumblend }, -- add `blend = vim.o.pumblend` to enable transparency
           PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
           PmenuSbar = { bg = theme.ui.bg_m1 },
           PmenuThumb = { bg = theme.ui.bg_p2 },
@@ -105,7 +105,7 @@ require("lazy").setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-  -- Git 
+  -- Git
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
 
@@ -119,7 +119,7 @@ require("lazy").setup({
 
       -- Status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
       -- Additional lua configuration
       'folke/neodev.nvim',
@@ -142,7 +142,7 @@ require("lazy").setup({
     },
   },
 
-  -- Telescope 
+  -- Telescope
   {
     'nvim-telescope/telescope.nvim',
     branch = '0.1.x',
@@ -179,10 +179,11 @@ require("lazy").setup({
   'gentoo/gentoo-syntax',
 
   -- Display keybinds
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
 
   -- Add indentation guides even on blank lines
-  { 'lukas-reineke/indent-blankline.nvim',
+  {
+    'lukas-reineke/indent-blankline.nvim',
     config = function()
       require("ibl").setup {
         indent = { char = "│" }
@@ -228,9 +229,9 @@ require("lazy").setup({
     config = function()
       require('neorg').setup {
         load = {
-          ['core.defaults'] = {}, -- Loads default behavior
+          ['core.defaults'] = {},  -- Loads default behavior
           ['core.concealer'] = {}, -- Adds icons
-          ['core.export'] = {}, -- Convert norg files to other filetypes
+          ['core.export'] = {},    -- Convert norg files to other filetypes
           ['core.export.markdown'] = {
             config = {
               extensions = "all"
@@ -247,7 +248,7 @@ require("lazy").setup({
           ["core.keybinds"] = {
             config = {
               hook = function(keybinds)
-                  keybinds.remap_key("norg", "n", "<C-Space>", "<LocalLeader>t")
+                keybinds.remap_key("norg", "n", "<C-Space>", "<LocalLeader>t")
               end,
             }
           },
@@ -268,42 +269,41 @@ vim.cmd.colorscheme 'kanagawa-wave'
 --> Configure LSP
 -- This function gets run when an LSP connects to the buffer.
 local on_attach = function(_, bufnr)
+  -- Helper to define mappings
+  local nmap = function(keys, func, desc)
+    if desc then
+      desc = 'LSP: ' .. desc
+    end
 
-	-- Helper to define mappings
-	local nmap = function(keys, func, desc)
-		if desc then
-			desc = 'LSP: ' .. desc
-		end
+    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  end
 
-		vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
-	end
+  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-	nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-	nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
+  nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-	nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-	nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-	nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-	nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-	nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-	nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+  -- See `:help K` for why this keymap
+  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
-	-- See `:help K` for why this keymap
-	nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-	nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  -- Lesser used LSP functionality
+  nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
+  nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
+  nmap('<leader>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, '[W]orkspace [L]ist Folders')
 
-	-- Lesser used LSP functionality
-	nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-	nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
-	nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-	nmap('<leader>wl', function()
-	  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, '[W]orkspace [L]ist Folders')
-
-	-- Create a command `:Format` local to the LSP buffer
-	vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-	  vim.lsp.buf.format()
-	end, { desc = 'Format current buffer with LSP' })
+  -- Create a command `:Format` local to the LSP buffer
+  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+    vim.lsp.buf.format()
+  end, { desc = 'Format current buffer with LSP' })
 end
 
 --> Language servers
@@ -537,7 +537,7 @@ if vim.g.kanagawa_lualine_bold then
   end
 end
 
-require('lualine').setup {options = {theme = kanagawa}}
+require('lualine').setup { options = { theme = kanagawa } }
 
 --> Highlight on yank
 -- See `:help vim.highlight.on_yank()`
@@ -559,7 +559,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
---> Diagnostic keymaps 
+--> Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
