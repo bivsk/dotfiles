@@ -1,0 +1,4 @@
+set sandbox strict
+set selection-clipboard clipboard
+
+include themes/rose-pine-moon
